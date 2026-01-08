@@ -5,140 +5,126 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>David Hruška – osobní stránka</title>
 
-  <meta name="description" content="One-page web." />
+  <meta name="description" content="Jednoduchá osobní one-page stránka studenta webového vývoje." />
   <meta name="author" content="David Hruška" />
 
   <style>
     :root {
-      --bg: #0a0a0a;
-      --bg-light: #141414;
-      --text: #e5e5e5;
-      --muted: #a3a3a3;
-      --border: #262626;
-      --accent: #ffffff;
+      --bg-dark: #0a0a0a;
+      --bg-light: #ffffff;
+      --text-dark: #ffffff;
+      --text-light: #000000;
+      --muted-dark: #a3a3a3;
+      --muted-light: #555555;
+      --border-dark: #555555;
+      --border-light: #000000;
+      --accent-dark: #ffffff;
+      --accent-light: #000000;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html { scroll-behavior: smooth; }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    section {
-      padding: 8rem 1.5rem;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    h1, h2 {
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    h1 {
-      font-size: clamp(3rem, 6vw, 4.5rem);
-    }
-
-    h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    p { color: var(--muted); }
-
-    a {
-      color: var(--accent);
-      text-decoration: none;
-      border: 1px solid var(--border);
-      padding: 0.9rem 2rem;
-      border-radius: 12px;
-      transition: background 0.2s ease;
-    }
-
-    a:hover { background: var(--bg-light); }
-
-    .hero {
+      margin: 0;
+      color: var(--text-dark);
+      background: var(--bg-dark);
+      transition: background 0.5s, color 0.5s;
+      position: relative;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      gap: 2rem;
+      overflow-x: hidden;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 3rem;
-      align-items: center;
+    /* ANIMOVANÉ POZADÍ - CIRCLE PATTERN */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px) repeat center/40px 40px;
+      animation: moveCircles 20s linear infinite;
+      pointer-events: none;
     }
 
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem;
+    @keyframes moveCircles {
+      0% { background-position: 0 0; }
+      100% { background-position: 400px 400px; }
     }
 
-    .skills {
+    section { padding: 6rem 1.5rem; position: relative; }
+    .container { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+
+    h1,h2 { font-weight: 800; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2.5rem, 6vw, 4rem); text-align: center; }
+    h2 { font-size: 2rem; margin-bottom: 1rem; text-align: center; }
+    p { text-align: center; }
+
+    a.button {
+      text-decoration: none;
+      border: 1px solid var(--border-dark);
+      padding: 0.8rem 1.8rem;
+      border-radius: 12px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--text-dark);
+      background: transparent;
+    }
+
+    .hero { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1rem; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 2rem; align-items: center; }
+    .card { border: 1px solid var(--border-dark); border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(6px); transition: transform 0.35s ease, background 0.35s ease, border-color 0.35s ease, color 0.5s; text-align: center; color: var(--text-dark); }
+    .card:hover { transform: translateY(-6px) scale(1.02); }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 1rem; }
+
+    footer { padding: 3rem 1rem; text-align: center; border-top: 1px solid var(--border-dark); }
+
+    .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .fade-up.show { opacity: 1; transform: translateY(0); }
+
+    #theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 100;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
       background: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.3s, color 0.3s;
     }
 
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.5rem;
-    }
-
-    footer {
-      padding: 3rem 1.5rem;
-      text-align: center;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    .fade-up {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .fade-up.show {
-      opacity: 1;
-      transform: translateY(0);
+    @media(max-width: 768px){
+      h1 { font-size: clamp(2rem, 8vw, 3rem); }
+      h2 { font-size: 1.5rem; }
+      .grid { gap: 1rem; }
+      .skills-grid { gap: 0.8rem; }
     }
   </style>
 </head>
 <body>
 
+<button id="theme-toggle">🌙</button>
+
 <section class="hero">
   <h1 id="hero-title">David Hruška</h1>
-  <p class="fade-up">One-page web.</p>
+  <p class="fade-up">One-page web</p>
+  <a href="#about" class="button fade-up">Poznat víc</a>
 </section>
 
 <section id="about">
   <div class="container grid">
     <div class="fade-up">
       <h2>O mně</h2>
-      <p>Jsem student, který se učí programovat různé programy a tvořit webové stránky. Tahle stránka je ukázka toho co zatím umím.</p>
+      <p>Jsem student, který se učí programovat a tvořit webové stránky.</p>
     </div>
     <div class="card fade-up">
       <ul>
         <li>Role: Student</li>
-        <li>Zaměření: Základy webu a programování</li>
-        <li>Stack: Python, HTML, CSS, JS</li>
+        <li>Zaměření: Základy webu</li>
+        <li>Stack: HTML, CSS, JavaScript, Python</li>
       </ul>
     </div>
   </div>
@@ -157,31 +143,52 @@
 </section>
 
 <section>
-  <div class="container fade-up" style="text-align:center; max-width:700px">
+  <div class="container fade-up" style="max-width:700px">
     <h2>Co chci dál</h2>
-    <p>Chci se dál zlepšovat ve programování, webovém vývoji a postupně dělat složitější projekty.</p>
+    <p>Chci se dál zlepšovat v prgoramování a ve webovém vývoji a postupně dělat složitější projekty.</p>
   </div>
 </section>
 
+<footer>
+  <p>© 2026 David Hruška</p>
+</footer>
+
 <script>
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('show');
-      }
-    });
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
   }, { threshold: 0.2 });
-
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
   const hero = document.getElementById('hero-title');
   hero.style.opacity = 0;
-  hero.style.transform = 'translateY(60px)';
-
+  hero.style.transform = 'translateY(40px)';
   window.addEventListener('load', () => {
     hero.style.transition = 'all 1.2s ease';
     hero.style.opacity = 1;
     hero.style.transform = 'translateY(0)';
+  });
+
+  const toggle = document.getElementById('theme-toggle');
+  toggle.addEventListener('click', () => {
+    const isLight = document.body.style.background === 'var(--bg-light)';
+
+    document.body.style.background = isLight ? 'var(--bg-dark)' : 'var(--bg-light)';
+    document.body.style.color = isLight ? 'var(--text-dark)' : 'var(--text-light)';
+
+    document.querySelectorAll('.card').forEach(c => {
+      c.style.borderColor = isLight ? 'var(--border-dark)' : 'var(--border-light)';
+      c.style.color = isLight ? 'var(--text-dark)' : 'var(--text-light)';
+    });
+
+    document.querySelectorAll('a.button').forEach(b => {
+      b.style.color = isLight ? 'var(--text-dark)' : 'var(--text-light)';
+      b.style.borderColor = isLight ? 'var(--border-dark)' : 'var(--border-light)';
+    });
+
+    // update animated circles color for visibility
+    document.body.style.setProperty('--grid-dark', isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.05)');
+
+    toggle.textContent = isLight ? '🌙' : '☀️';
   });
 </script>
 

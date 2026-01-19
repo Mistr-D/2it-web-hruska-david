@@ -1,4 +1,4 @@
-# 2it-web-David-Hruska
+# 2it-web-hruska-david
 
 Tento web je o studentovy co ten web vytvořil, jsou tam inf. na jakou školu chodí a v čem se chce zplešit.
 
